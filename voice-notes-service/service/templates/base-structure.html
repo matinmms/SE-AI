@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="green">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تِسا نُت | Tesanote - Premium Academic Notes (Green Theme)</title>
+
+    <style>
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('/fonts/Caveat,Vazirmatn/Vazirmatn/Vazirmatn-VariableFont_wght.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ============================================
+             CSS CUSTOM PROPERTIES (Green Theme)
+             ============================================ */
+        :root {
+            /* ---- Primary palette (Green Theme) ---- */
+            --color-primary: #1e3b2c;
+            --color-primary-light: #2a523b;
+            --color-primary-dark: #0f1f16;
+            --color-accent: #4a8c5c;
+            --color-accent-light: #6ba87a;
+            --color-accent-extra: #8ac926;
+            --color-accent-subtle: #eef7f0;
+
+            /* Surface & background */
+            --color-bg-page: #fdfdfb;
+            --color-bg-warm: #f9faf6;
+            --color-surface: #ffffff;
+            --color-surface-hover: #f7f9f5;
+
+            /* Text */
+            --color-text-primary: #1c2a1f;
+            --color-text-secondary: #2d3d2f;
+            --color-text-muted: #5b665d;
+            --color-text-light: #8a928b;
+
+            /* Box accents (green family with harmonic variations) */
+            --color-example-bg: #ebf7ee;
+            --color-example-border: #3a7d5c;
+            --color-example-icon: #2b6745;
+            --color-note-bg: #fcf9ee;
+            --color-note-border: #b38b40;
+            --color-note-icon: #8b6d2c;
+            --color-summary-bg: #f2f5f0;
+            --color-summary-border: #4a7850;
+            --color-summary-icon: #3c5e42;
+            --color-exam-bg: #fef5f5;
+            --color-exam-border: #c05050;
+            --color-exam-icon: #a83a3a;
+            --color-formula-bg: #f8fbf8;
+            --color-formula-border: #c8d9cc;
+
+            /* Table */
+            --color-table-header-bg: #1e3b2c;
+            --color-table-header-text: #ffffff;
+            --color-table-row-even: #f4f7f4;
+            --color-table-row-odd: #ffffff;
+            --color-table-border: #dde4df;
+
+            /* Typography (same as before) */
+            --font-primary: 'Vazirmatn', 'Tahoma', 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+            --font-size-base: 13.5px;
+            --font-size-sm: 11.5px;
+            --font-size-xs: 10px;
+            --font-size-lg: 16px;
+            --font-size-xl: 19px;
+            --font-size-2xl: 22px;
+            --font-size-3xl: 26px;
+            --line-height-base: 2;
+            --line-height-heading: 1.5;
+            --line-height-compact: 1.7;
+
+            /* Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 14px;
+            --spacing-lg: 20px;
+            --spacing-xl: 28px;
+            --spacing-2xl: 36px;
+            --spacing-3xl: 48px;
+
+            /* A4 Page */
+            --page-width: 794px;
+            --page-min-height: 1123px;
+            --page-margin-top: 52px;
+            --page-margin-bottom: 48px;
+            --page-margin-inner: 60px;
+            --page-margin-outer: 55px;
+            --page-content-width: 679px;
+
+            /* Borders & Shadows */
+            --radius-sm: 5px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 3px 10px rgba(0,0,0,0.08);
+            --shadow-page: 0 2px 20px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+            --shadow-box: 0 1px 3px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.03);
+
+            /* Reference styles */
+            --color-ref-bg: rgba(74, 140, 92, 0.12);
+            --color-ref-text: #1e3b2c;
+            --color-ref-border: rgba(74, 140, 92, 0.35);
+        }
+
+        /* ============================================
+             RESET & BASE STYLES
+             ============================================ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: var(--font-size-base);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: #e8e6e0;
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(30, 59, 44, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse at 80% 100%, rgba(74, 140, 92, 0.08) 0%, transparent 60%);
+            color: var(--color-text-primary);
+            line-height: var(--line-height-base);
+            direction: rtl;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 16px 60px;
+            min-height: 100vh;
+        }
+
+        /* ============================================
+             TEMPLATE WRAPPER
+             ============================================ */
+        .template-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            width: 100%;
+            max-width: calc(var(--page-width) + 40px);
+        }
+
+        /* ============================================
+             A4 PAGE CONTAINER
+             ============================================ */
+        .a4-page {
+            width: var(--page-width);
+            min-height: var(--page-min-height);
+            background: var(--color-bg-page);
+            box-shadow: var(--shadow-page);
+            border-radius: 2px;
+            padding-top: var(--page-margin-top);
+            padding-bottom: var(--page-margin-bottom);
+            padding-right: var(--page-margin-outer);
+            padding-left: var(--page-margin-inner);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-normal);
+        }
+
+        .a4-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(to left,
+                    var(--color-primary) 0%,
+                    var(--color-primary-light) 30%,
+                    var(--color-accent) 60%,
+                    var(--color-accent-extra) 85%,
+                    transparent 100%);
+            opacity: 0.9;
+            z-index: 10;
+        }
+
+        /* Subtle corner pattern */
+        .a4-page::after {
+            content: '';
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            width: 80px;
+            height: 80px;
+            border: 1.5px solid rgba(30, 59, 44, 0.08);
+            border-radius: 50%;
+            transform: rotate(-20deg);
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(74, 140, 92, 0.04) 0%, transparent 70%);
+        }
+
+        /* ============================================
+             PAGE HEADER (Default + Fancy First Page)
+             ============================================ */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid rgba(30, 59, 44, 0.15);
+            position: relative;
+            z-index: 5;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Fancy first-page header styling */
+        .a4-page:first-of-type .page-header {
+            background: linear-gradient(135deg,
+                    rgba(30, 59, 44, 0.04) 0%,
+                    rgba(74, 140, 92, 0.06) 100%);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            margin-left: -var(--page-margin-inner);
+            margin-right: -var(--page-margin-outer);
+            padding-left: var(--page-margin-inner);
+            padding-right: var(--page-margin-outer);
+            border-bottom: 2px solid var(--color-accent);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .a4-page:first-of-type .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to left, var(--color-accent-light), transparent);
+            opacity: 0.4;
+        }
+
+        .page-header__brand {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            flex-shrink: 0;
+        }
+
+        .a4-page:first-of-type .page-header__brand {
+            transform: scale(1.03);
+            gap: var(--spacing-md);
+        }
+
+        .page-header__logo-mark {
+            width: 28px;
+            height: 28px;
+            background: var(--color-primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .a4-page:first-of-type .page-header__logo-mark {
+            width: 36px;
+            height: 36px;
+            background: var(--color-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .page-header__logo-mark::after {
+            content: '';
+            width: 9px;
+            height: 9px;
+            background: var(--color-accent);
+            border-radius: 2px;
+            transform: rotate(45deg);
+        }
+
+        .a4-page:first-of-type .page-header__logo-mark::after {
+            width: 12px;
+            height: 12px;
+            background: var(--color-accent-extra);
+        }
+
+        .page-header__brand-text {
+            font-size: var(--font-size-sm);
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: -0.2px;
+            white-space: nowrap;
+        }
+
+        .a4-page:first-of-type .page-header__brand-text {
+            font-size: var(--font-size-lg);
+            font-weight: 900;
+            color: var(--color-primary);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header__brand-subtitle {
+            font-size: 8px;
+            font-weight: 400;
+            color: var(--color-text-muted);
+            letter-spacing: 0.5px;
+            display: block;
+            margin-top: -2px;
+        }
+
+        .a4-page:first-of-type .page-header__brand-subtitle {
+            font-size: 10px;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .page-header__meta {
+            text-align: left;
+            flex-shrink: 0;
+        }
+
+        .a4-page:first-of-type .page-header__meta {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 12px;
+            border: 1px solid rgba(74, 140, 92, 0.2);
+        }
+
+        .page-header__course-name {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 1px;
+        }
+
+        .page-header__course-detail {
+            font-size: var(--font-size-xs);
+            font-weight: 400;
+            color: var(--color-text-muted);
+            display: block;
+        }
+
+        .page-header__lecture-badge {
+            display: inline-block;
+            background: var(--color-primary);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            margin-top: 3px;
+        }
+
+        .a4-page:first-of-type .page-header__lecture-badge {
+            background: var(--color-accent);
+            font-size: 10px;
+            padding: 3px 12px;
+        }
+
+        /* ============================================
+             PAGE CONTENT & FOOTER (unchanged core)
+             ============================================ */
+        .page-content {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(30, 59, 44, 0.1);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .page-footer__page-number {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .page-footer__page-number::before {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 1px;
+            background: var(--color-text-light);
+            opacity: 0.5;
+        }
+
+        .page-footer__brand-watermark {
+            font-size: 8px;
+            color: var(--color-text-light);
+            letter-spacing: 1px;
+            opacity: 0.6;
+            font-weight: 400;
+        }
+
+        /* ============================================
+             CHAPTER & SECTION HEADERS (green touches)
+             ============================================ */
+        .chapter-header {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .chapter-header__number {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: 700;
+            color: var(--color-accent);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-xs);
+            background: var(--color-accent-subtle);
+            padding: 3px 12px;
+            border-radius: 20px;
+        }
+
+        .chapter-header__title {
+            font-size: var(--font-size-3xl);
+            font-weight: 900;
+            color: var(--color-primary);
+            line-height: var(--line-height-heading);
+            letter-spacing: -0.3px;
+        }
+
+        .chapter-header__subtitle {
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            color: var(--color-text-muted);
+            margin-top: var(--spacing-xs);
+            line-height: var(--line-height-compact);
+        }
+
+        .chapter-header__divider {
+            width: 60px;
+            height: 3px;
+            background: var(--color-accent);
+            border-radius: 2px;
+            margin-top: var(--spacing-md);
+            opacity: 0.8;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .section-header__number {
+            width: 32px;
+            height: 32px;
+            background: var(--color-primary);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-sm);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-header__title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: var(--line-height-heading);
+        }
+
+        .section-header__accent-dot {
+            width: 5px;
+            height: 5px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin: 0 2px;
+        }
+
+        .subsection-header {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-primary-light);
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+            padding-right: var(--spacing-md);
+            border-right: 3px solid var(--color-accent);
+            line-height: var(--line-height-heading);
+        }
+
+        /* ============================================
+             PARAGRAPH (with reference capability)
+             ============================================ */
+        .paragraph {
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-base);
+            text-align: justify;
+            text-justify: inter-word;
+            margin-bottom: var(--spacing-xs);
+            letter-spacing: -0.1px;
+            position: relative;
+        }
+
+        .paragraph--lead {
+            font-size: var(--font-size-lg);
+            font-weight: 500;
+            color: var(--color-text-primary);
+            line-height: var(--line-height-compact);
+        }
+
+        .paragraph--compact {
+            line-height: var(--line-height-compact);
+            font-size: var(--font-size-sm);
+        }
+
+        /* ============================================
+             REFERENCE NOTATION (fancy minimal badge)
+             ============================================ */
+        .ref-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85em;
+            background: var(--color-ref-bg);
+            color: var(--color-ref-text);
+            border: 1px solid var(--color-ref-border);
+            border-radius: 20px;
+            padding: 1px 8px;
+            margin: 0 4px;
+            white-space: nowrap;
+            font-weight: 500;
+            letter-spacing: -0.2px;
+            vertical-align: middle;
+            position: relative;
+            top: -1px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            transition: all 0.2s;
+        }
+
+        .ref-note::before {
+            content: '📎';
+            font-size: 0.9em;
+            margin-left: 2px;
+            opacity: 0.8;
+        }
+
+        .ref-note--slide::before {
+            content: '🖥️';
+        }
+
+        .ref-note--page::before {
+            content: '📄';
+        }
+
+        .ref-note:hover {
+            background: rgba(74, 140, 92, 0.2);
+            border-color: var(--color-accent);
+            cursor: default;
+        }
+
+        /* Alternative marginal reference */
+        .reference-marker {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 9px;
+            font-weight: 700;
+            margin: 0 3px;
+            vertical-align: super;
+            position: relative;
+            top: -4px;
+            cursor: help;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* ============================================
+             FANCY FORMULA BOX (improved aesthetics)
+             ============================================ */
+        .formula-box {
+            background: var(--color-formula-bg);
+            border: 1px solid var(--color-formula-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl) var(--spacing-2xl);
+            margin: var(--spacing-lg) 0;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-md), 0 0 0 1px rgba(74, 140, 92, 0.1);
+            font-family: var(--font-mono);
+            font-size: 16px;
+            direction: ltr;
+            color: var(--color-primary-dark);
+            letter-spacing: 0.5px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-break: break-all;
+            background-image: radial-gradient(circle at 10% 20%, rgba(74, 140, 92, 0.02) 0%, transparent 50%);
+            transition: box-shadow 0.3s;
+        }
+
+        .formula-box:hover {
+            box-shadow: var(--shadow-md), 0 0 0 2px rgba(74, 140, 92, 0.25);
+        }
+
+        .formula-box::before {
+            content: '';
+            position: absolute;
+            right: var(--spacing-md);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--color-accent), var(--color-accent-light));
+            border-radius: 4px;
+            opacity: 0.7;
+        }
+
+        .formula-box__label {
+            position: absolute;
+            left: var(--spacing-md);
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--font-primary);
+            font-size: var(--font-size-xs);
+            font-weight: 700;
+            color: #fff;
+            background: var(--color-accent);
+            padding: 3px 10px;
+            border-radius: 20px;
+            direction: rtl;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            letter-spacing: 0.3px;
+        }
+
+        .formula-box--numbered {
+            padding-left: 80px; /* space for label */
+        }
+
+        /* ============================================
+             EXAMPLE BOX (green tint)
+             ============================================ */
+        .example-box {
+            background: var(--color-example-bg);
+            border-right: 4px solid var(--color-example-border);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            margin: var(--spacing-md) 0;
+            position: relative;
+            box-shadow: var(--shadow-box);
+        }
+
+        .example-box__header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .example-box__icon {
+            width: 28px;
+            height: 28px;
+            background: var(--color-example-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .example-box__icon-inner {
+            width: 10px;
+            height: 10px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .example-box__icon-inner::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            border-radius: 50%;
+        }
+
+        .example-box__title {
+            font-weight: 700;
+            color: var(--color-example-icon);
+            font-size: var(--font-size-lg);
+        }
+
+        .example-box__content {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-base);
+            text-align: justify;
+        }
+
+        .example-box__solution-label {
+            display: inline-block;
+            font-weight: 700;
+            color: var(--color-example-border);
+            margin-top: var(--spacing-sm);
+            font-size: var(--font-size-sm);
+            background: rgba(58, 125, 92, 0.08);
+            padding: 2px 10px;
+            border-radius: 3px;
+        }
+
+        /* ============================================
+             NOTE BOX
+             ============================================ */
+        .note-box {
+            background: var(--color-note-bg);
+            border-right: 4px solid var(--color-note-border);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            margin: var(--spacing-md) 0;
+            position: relative;
+            box-shadow: var(--shadow-box);
+        }
+
+        .note-box__header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .note-box__icon {
+            width: 28px;
+            height: 28px;
+            background: var(--color-note-border);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transform: rotate(3deg);
+        }
+
+        .note-box__icon-mark {
+            color: #fff;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .note-box__title {
+            font-weight: 700;
+            color: var(--color-note-icon);
+            font-size: var(--font-size-lg);
+        }
+
+        .note-box__content {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-base);
+            text-align: justify;
+        }
+
+        /* ============================================
+             SUMMARY BOX
+             ============================================ */
+        .summary-box {
+            background: var(--color-summary-bg);
+            border: 2px solid var(--color-summary-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl) var(--spacing-2xl);
+            margin: var(--spacing-lg) 0;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .summary-box__header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px dashed rgba(74, 120, 80, 0.3);
+        }
+
+        .summary-box__icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .summary-box__title {
+            font-weight: 800;
+            color: var(--color-summary-icon);
+            font-size: var(--font-size-xl);
+        }
+
+        .summary-box__content {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-base);
+            text-align: justify;
+        }
+
+        .summary-box__list {
+            list-style: none;
+            padding: 0;
+            margin: var(--spacing-sm) 0 0;
+        }
+
+        .summary-box__list-item {
+            padding: var(--spacing-xs) 0;
+            padding-right: var(--spacing-lg);
+            position: relative;
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+        }
+
+        .summary-box__list-item::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 7px;
+            height: 7px;
+            background: var(--color-summary-border);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        /* ============================================
+             EXAM POINT HIGHLIGHT
+             ============================================ */
+        .exam-point {
+            background: var(--color-exam-bg);
+            border: 1.5px dashed var(--color-exam-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            margin: var(--spacing-md) 0;
+            position: relative;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .exam-point__header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .exam-point__icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .exam-point__title {
+            font-weight: 800;
+            color: var(--color-exam-icon);
+            font-size: var(--font-size-base);
+            letter-spacing: -0.2px;
+        }
+
+        .exam-point__badge {
+            background: var(--color-exam-border);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .exam-point__content {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-compact);
+            text-align: justify;
+            font-weight: 500;
+        }
+
+        /* ============================================
+             TABLE (green header)
+             ============================================ */
+        .table-container {
+            margin: var(--spacing-md) 0;
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-table-border);
+        }
+
+        .table-container__caption {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-primary);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: #f8faf8;
+            border-bottom: 1px solid var(--color-table-border);
+            text-align: center;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-compact);
+        }
+
+        .table-container thead th {
+            background: var(--color-table-header-bg);
+            color: var(--color-table-header-text);
+            font-weight: 600;
+            padding: 10px 14px;
+            text-align: center;
+            font-size: var(--font-size-sm);
+        }
+
+        .table-container tbody td {
+            padding: 9px 14px;
+            text-align: center;
+            border-bottom: 1px solid rgba(221, 228, 223, 0.6);
+            color: var(--color-text-secondary);
+        }
+
+        .table-container tbody tr:nth-child(even) td {
+            background: var(--color-table-row-even);
+        }
+        .table-container tbody tr:nth-child(odd) td {
+            background: var(--color-table-row-odd);
+        }
+        .table-container tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ============================================
+             FIGURE REFERENCE
+             ============================================ */
+        .figure-reference {
+            margin: var(--spacing-lg) 0;
+            text-align: center;
+            border: 1px solid rgba(30, 59, 44, 0.1);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--color-surface);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .figure-reference__image-placeholder {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #f2f6f3 0%, #e9efe9 50%, #f2f6f3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .figure-reference__image-placeholder-icon {
+            width: 28px;
+            height: 28px;
+            opacity: 0.3;
+            position: relative;
+            z-index: 2;
+        }
+
+        .figure-reference__caption {
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+            font-weight: 500;
+            background: #f9fbf9;
+            border-top: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .figure-reference__number {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+             KEY HIGHLIGHT
+             ============================================ */
+        .key-highlight {
+            background: linear-gradient(to right,
+                    rgba(74, 140, 92, 0.12) 0%,
+                    rgba(74, 140, 92, 0.04) 60%,
+                    transparent 100%);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            border-right: 3px solid var(--color-accent);
+            margin: var(--spacing-sm) 0;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            line-height: var(--line-height-compact);
+        }
+
+        /* ============================================
+             UTILITIES & DIVIDERS
+             ============================================ */
+        .content-divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to left,
+                    transparent 0%,
+                    rgba(30, 59, 44, 0.12) 30%,
+                    rgba(74, 140, 92, 0.2) 60%,
+                    transparent 100%);
+            margin: var(--spacing-md) 0;
+        }
+
+        .context-indicator {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-light);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .context-indicator__dot {
+            width: 3px;
+            height: 3px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .u-mt-sm { margin-top: var(--spacing-sm); }
+        .u-mt-md { margin-top: var(--spacing-md); }
+        .u-mt-lg { margin-top: var(--spacing-lg); }
+        .u-mb-sm { margin-bottom: var(--spacing-sm); }
+        .u-mb-md { margin-bottom: var(--spacing-md); }
+        .u-mb-lg { margin-bottom: var(--spacing-lg); }
+
+        /* ============================================
+             PRINT STYLES
+             ============================================ */
+        @media print {
+            @page { size: A4; margin: 0; }
+            body { background: #fff; padding: 0; }
+            .a4-page {
+                width: 210mm; min-height: 297mm; box-shadow: none;
+                padding: 15mm 16mm 14mm 14mm;
+                page-break-after: always;
+            }
+            .a4-page::before { height: 2px; }
+            .a4-page:last-child { page-break-after: avoid; }
+            .example-box, .note-box, .summary-box, .exam-point, .formula-box {
+                break-inside: avoid; box-shadow: none;
+            }
+        }
+
+        @media screen and (max-width: 860px) {
+            .a4-page { width: 100%; padding: 28px 20px; }
+            .chapter-header__title { font-size: var(--font-size-2xl); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="template-wrapper">
+
+        <!-- ============================================
+        PAGE 1: FANCY HEADER + CHAPTER OPENING
+        ============================================ -->
+        <div class="a4-page">
+            <header class="page-header">
+                <div class="page-header__brand">
+                    <div class="page-header__logo-mark" aria-hidden="true"></div>
+                    <div>
+                        <span class="page-header__brand-text">تِسا نُت</span>
+                        <span class="page-header__brand-subtitle">Tesanote AI</span>
+                    </div>
+                </div>
+                <div class="page-header__meta">
+                    <span class="page-header__course-name">فیزیک عمومی ۲</span>
+                    <span class="page-header__course-detail">دکتر احمدی • جلسه ۵</span>
+                    <span class="page-header__lecture-badge">الکترومغناطیس</span>
+                </div>
+            </header>
+
+            <main class="page-content">
+                <div class="chapter-header">
+                    <span class="chapter-header__number">فصل سوم</span>
+                    <h1 class="chapter-header__title">میدان‌های الکتریکی و قانون گاوس</h1>
+                    <p class="chapter-header__subtitle">تحلیل میدان در توزیع‌های بار پیوسته و کاربردهای قانون گاوس</p>
+                    <div class="chapter-header__divider"></div>
+                </div>
+
+                <div class="section-header">
+                    <span class="section-header__number">۱</span>
+                    <h2 class="section-header__title">مفاهیم بنیادی میدان الکتریکی</h2>
+                    <span class="section-header__accent-dot"></span>
+                </div>
+
+                <p class="paragraph paragraph--lead">
+                    میدان الکتریکی کمیتی برداری است که در هر نقطه از فضا تعریف می‌شود و نشان‌دهندهٔ نیروی وارد بر یک بار آزمون واحد در آن نقطه است. <span class="ref-note ref-note--slide">اسلاید ۱۲</span> این مفهوم، سنگ بنای تحلیل برهم‌کنش‌های الکترومغناطیسی به‌شمار می‌رود.
+                </p>
+
+                <p class="paragraph">
+                    در این فصل، ابتدا به مرور تعریف دقیق میدان الکتریکی و ویژگی‌های آن می‌پردازیم. سپس قانون گاوس را به‌عنوان یکی از قدرتمندترین ابزارهای تحلیلی در الکتروستاتیک معرفی می‌کنیم. <span class="ref-note ref-note--page">ص ۴۲ کتاب</span>
+                </p>
+
+                <!-- Fancy formula box with rendered LaTeX -->
+                <div class="formula-box formula-box--numbered" role="math">
+                    \(\vec{E} = \frac{1}{4\pi\varepsilon_0} \int \frac{dq}{r^2} \hat{r}\)
+                    <span class="formula-box__label">(۳-۱)</span>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-box__header">
+                        <span class="example-box__icon"><span class="example-box__icon-inner"></span></span>
+                        <span class="example-box__title">مثال ۳-۱</span>
+                    </div>
+                    <div class="example-box__content">
+                        <p class="paragraph paragraph--compact">
+                            یک میلهٔ نازک به طول \(L\) دارای بار یکنواخت با چگالی خطی \(\lambda\) است. میدان الکتریکی را در نقطه‌ای روی محور تقارن میله و به فاصلهٔ \(d\) از مرکز آن محاسبه کنید. <span class="ref-note ref-note--slide">اسلاید ۱۵</span>
+                        </p>
+                        <span class="example-box__solution-label">▼ راه‌حل:</span>
+                        <p class="paragraph paragraph--compact u-mt-sm">
+                            با انتخاب یک المان بار \(dq = \lambda dx\) و استفاده از تقارن مسئله، مؤلفه‌های عمودی میدان حذف می‌شوند. با انتگرال‌گیری روی طول میله، میدان در راستای محور به‌صورت \(E = \frac{2k\lambda L}{d\sqrt{4d^2+L^2}}\) به‌دست می‌آید.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <div class="note-box__header">
+                        <span class="note-box__icon"><span class="note-box__icon-mark">!</span></span>
+                        <span class="note-box__title">نکتهٔ مهم</span>
+                    </div>
+                    <div class="note-box__content">
+                        <p class="paragraph paragraph--compact">
+                            در مسائل دارای تقارن، استفاده از <strong>قانون گاوس</strong> به‌مراتب ساده‌تر از انتگرال‌گیری مستقیم است. همیشه پیش از شروع حل مسئله، نوع تقارن را بررسی کنید. <span class="ref-note ref-note--page">نکتهٔ کلیدی ص ۵۰</span>
+                        </p>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="page-footer">
+                <span class="page-footer__page-number">صفحه ۱</span>
+                <span class="page-footer__brand-watermark">تِسا نُت • Tesanote</span>
+            </footer>
+        </div>
+
+        <!-- ============================================
+        PAGE 2: TABLES + FIGURES + EXAM POINTS (with refs)
+        ============================================ -->
+        <div class="a4-page">
+            <header class="page-header">
+                <div class="page-header__brand">
+                    <div class="page-header__logo-mark"></div>
+                    <div>
+                        <span class="page-header__brand-text">تِسا نُت</span>
+                        <span class="page-header__brand-subtitle">Tesanote AI</span>
+                    </div>
+                </div>
+                <div class="page-header__meta">
+                    <span class="page-header__course-name">فیزیک عمومی ۲</span>
+                    <span class="page-header__course-detail">دکتر احمدی • جلسه ۵</span>
+                    <span class="page-header__lecture-badge">الکترومغناطیس</span>
+                </div>
+            </header>
+
+            <main class="page-content">
+                <h3 class="subsection-header">توزیع‌های بار متقارن و انتخاب سطح گاوسی</h3>
+                <p class="paragraph">
+                    انتخاب سطح گاوسی مناسب، کلید موفقیت در کاربرد قانون گاوس است. جدول زیر راهنمای انتخاب سطح گاوسی برای هندسه‌های مختلف می‌باشد. <span class="ref-note ref-note--page">جدول ۳-۱</span>
+                </p>
+
+                <div class="table-container">
+                    <div class="table-container__caption">جدول ۳-۱: انتخاب سطح گاوس بر اساس تقارن</div>
+                    <table>
+                        <thead><tr><th>نوع تقارن</th><th>شکل توزیع بار</th><th>سطح گاوسی پیشنهادی</th><th>فرمول میدان</th></tr></thead>
+                        <tbody>
+                            <tr><td>کروی</td><td>کرهٔ باردار</td><td>کرهٔ هم‌مرکز</td><td>\(E = \frac{kQ}{r^2}\)</td></tr>
+                            <tr><td>استوانه‌ای</td><td>میلهٔ بی‌نهایت</td><td>استوانهٔ هم‌محور</td><td>\(E = \frac{\lambda}{2\pi\varepsilon_0 r}\)</td></tr>
+                            <tr><td>صفحه‌ای</td><td>صفحهٔ بی‌نهایت</td><td>استوانهٔ عمود بر صفحه</td><td>\(E = \frac{\sigma}{2\varepsilon_0}\)</td></tr>
+                            <tr><td>کروی (داخل)</td><td>کرهٔ توپر عایق</td><td>کرهٔ هم‌مرکز داخلی</td><td>\(E = \frac{kQr}{R^3}\)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="figure-reference">
+                    <div class="figure-reference__image-placeholder">
+                        <div class="figure-reference__image-placeholder-icon"></div>
+                        <!-- Replace with <img> tag dynamically -->
+                    </div>
+                    <div class="figure-reference__caption">
+                        <span class="figure-reference__number">شکل ۳-۱:</span> نمایش شماتیک سطح گاوسی استوانه‌ای. <span class="ref-note ref-note--slide">اسلاید ۱۸</span>
+                    </div>
+                </div>
+
+                <div class="exam-point">
+                    <div class="exam-point__header">
+                        <span class="exam-point__icon">🎯</span>
+                        <span class="exam-point__title">نکتهٔ آزمونی</span>
+                        <span class="exam-point__badge">پر تکرار</span>
+                    </div>
+                    <div class="exam-point__content">
+                        در آزمون‌های سراسری، محاسبهٔ میدان الکتریکی حاصل از <strong>کرهٔ توپر عایق</strong> بسیار مهم است. به‌خاطر بسپارید که میدان درون کره با فاصله از مرکز رابطهٔ خطی (\(E \propto r\)) دارد. <span class="reference-marker" title="منبع: آزمون ۱۴۰۱">۳</span>
+                    </div>
+                </div>
+
+                <div class="key-highlight">
+                    <strong>خلاصه:</strong> قانون گاوس برای سطوح بسته‌ای که تقارن را منعکس می‌کنند، محاسبه را ساده می‌کند. <span class="ref-note">مرور سریع</span>
+                </div>
+            </main>
+
+            <footer class="page-footer">
+                <span class="page-footer__page-number">صفحه ۲</span>
+                <span class="page-footer__brand-watermark">تِسا نُت • Tesanote</span>
+            </footer>
+        </div>
+
+        <!-- ============================================
+        PAGE 3: SUMMARY + MORE FORMULAS
+        ============================================ -->
+        <div class="a4-page">
+            <header class="page-header">
+                <div class="page-header__brand">
+                    <div class="page-header__logo-mark"></div>
+                    <div>
+                        <span class="page-header__brand-text">تِسا نُت</span>
+                        <span class="page-header__brand-subtitle">Tesanote AI</span>
+                    </div>
+                </div>
+                <div class="page-header__meta">
+                    <span class="page-header__course-name">فیزیک عمومی ۲</span>
+                    <span class="page-header__course-detail">دکتر احمدی • جلسه ۵</span>
+                </div>
+            </header>
+
+            <main class="page-content">
+                <div class="section-header">
+                    <span class="section-header__number">۲</span>
+                    <h2 class="section-header__title">شار الکتریکی و قانون گاوس</h2>
+                </div>
+                <p class="paragraph">
+                    شار الکتریکی (\(\Phi_E\)) معیاری از تعداد خطوط میدان است که از یک سطح می‌گذرند. <span class="ref-note ref-note--page">ص ۵۵</span>
+                </p>
+
+                <div class="formula-box formula-box--numbered">
+                    \(\Phi_E = \oint_S \vec{E} \cdot d\vec{A} = \frac{Q_{\text{enc}}}{\varepsilon_0}\)
+                    <span class="formula-box__label">(۳-۲)</span>
+                </div>
+
+                <div class="summary-box">
+                    <div class="summary-box__header">
+                        <span class="summary-box__icon">📋</span>
+                        <span class="summary-box__title">خلاصهٔ فصل سوم</span>
+                    </div>
+                    <div class="summary-box__content">
+                        <ul class="summary-box__list">
+                            <li class="summary-box__list-item">تعریف میدان الکتریکی و فرمول کولنی</li>
+                            <li class="summary-box__list-item">انتگرال‌گیری مستقیم برای توزیع بار</li>
+                            <li class="summary-box__list-item">معرفی شار الکتریکی و سطح بسته</li>
+                            <li class="summary-box__list-item">بیان قانون گاوس و شرایط کاربرد</li>
+                            <li class="summary-box__list-item">انتخاب سطح گاوسی برای تقارن‌ها</li>
+                        </ul>
+                        <p class="paragraph paragraph--compact u-mt-sm">
+                            <span class="ref-note">برای امتحان، این شش مورد را حتماً مرور کنید.</span>
+                        </p>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="page-footer">
+                <span class="page-footer__page-number">صفحه ۳</span>
+                <span class="page-footer__brand-watermark">تِسا نُت • Tesanote</span>
+            </footer>
+        </div>
+    </div>
+
+    <!--
+    ============================================
+    THEME SWITCHING & CUSTOMIZATION NOTES
+    ============================================
+    To change the theme, simply modify the CSS variables
+    inside :root, or swap the data-theme attribute on <html>.
+    Example for a blue theme: replace green values with blue tones.
+    All components will inherit the new accent colors seamlessly.
+
+    The fancy first-page header is triggered automatically
+    by .a4-page:first-of-type .page-header.
+    ============================================
+    -->
+
+</body>
+</html>

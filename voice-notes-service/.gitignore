@@ -1,0 +1,6 @@
+.env
+service/data/
+**/__pycache__/
+*.pyc
+out/
+.venv/

@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+import os
+from pathlib import Path
+import sys
+
+
+def _exec_local_venv_python() -> None:
+    project_root = Path(__file__).resolve().parent
+    venv_python = project_root / ".venv" / "bin" / "python"
+    if venv_python.exists():
+        os.execv(str(venv_python), [str(venv_python), __file__, *sys.argv[1:]])
+
+
+def main() -> None:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", os.getenv("DJANGO_SETTINGS_MODULE", "config.settings.service"))
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        _exec_local_venv_python()
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and available on your "
+            "PYTHONPATH environment variable? Did you forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
+
+
+if __name__ == "__main__":
+    main()
